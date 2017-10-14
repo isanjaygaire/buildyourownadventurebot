@@ -19,26 +19,24 @@ function fPlay(req, res){
   var sFrom = req.body.From;
   var sAction = req.body.Body;
   var twiml = new twilio.twiml.MessagingResponse();
-  if(sAction.toLowerCase().search("yes") != -1){
-    twiml.message("Oh glory. Here it is. I got it for you. Do you throw it again?");
-  }else if(sAction.toLowerCase().search("no") != -1){
-    twiml.message("Oh well. Wait .... Over there is that a stick or a fire hydrant?");
-    oConnections[sFrom].fCurState = fStickOrHydrant;
+  if(sAction.toLowerCase().search("Maid") != -1){
+    twiml.message("Here is another one.");
+    oConnections[sFrom].fCurState = fDencrypt;
+  }
   }else{
-    twiml.message("Wow! I've never seen you do " + sAction + " before. Wait .... Over there is that a stick or a fire hydrant?")
-    oConnections[sFrom].fCurState = fStickOrHydrant;
+    twiml.message("Sorry, Its the maid because There are no corners in a circular mansion.")
   }
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
 }
 
-function fStick(req, res){
+function fDencrypt(req, res){
   var sFrom = req.body.From;
   var sAction = req.body.Body;
   var twiml = new twilio.twiml.MessagingResponse();
-  if(sAction.toLowerCase().search("eat") != -1){
+  if(sAction.toLowerCase().search("bill") != -1){
     oConnections[sFrom].fCurState = fStickOrHydrant;
-    twiml.message("Yum! Sticks are the best thing ever lot's of roughage. Wait .... Over there is that a stick or a fire hydrant?");
+    twiml.message("A detective who was mere days from cracking an international smuggling ring has suddenly gone missing. While inspecting his last-known location, you find a note: 710 57735 34 5508 51 7718 \n Currently there are 3 suspects: Bill, John, and Todd. Can you break the detective’s code and find the criminal’s name?");
   }else if(sAction.toLowerCase().search("take") != -1){
     twiml.message("Please play with me. Do you throw the stick?");
     oConnections[sFrom].fCurState = fPlay;
@@ -70,7 +68,7 @@ function fBeginning(req, res){
   var sFrom = req.body.From;
   oConnections[sFrom].fCurState = fStickOrHydrant;
   var twiml = new twilio.twiml.MessagingResponse();
-  twiml.message('Hi ... My name is Sheba. I am very enthusiastic about this game. Wait! Is that a stick or a fire hydrant?');
+  twiml.message('There is a man found dead in a circular mansion. The detective interviews the cook, maid, and babysitter. The cook said he couldn\'t have done it because he was preparing the meal. The maid said she couldn't have done it because she was dusting the corners. The babysitter said she couldn\'t because she was playing with the children. Who was lying?');
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
 
