@@ -49,7 +49,7 @@ function fPlay(req, res){
   var sAction = req.body.Body;
   var twiml = new twilio.twiml.MessagingResponse();
   if(sAction.toLowerCase().search("yes") != -1){
-    twiml.message('There is a man found dead in a circular mansion. The detective interviews the cook, maid, and babysitter. The cook said he couldn\'t have done it because he was preparing the meal. The maid said she couldn\'t have done it because she was dusting the corners. The babysitter said she couldn\'t because she was playing with the children. Who was lying?');
+    twiml.message('There is a man found dead in a circular mansion. The detective interviews the cook, maid, and babysitter. The cook said he couldn\'t have done it because he was preparing the meal. The maid said she couldnot have done it because she was dusting the corners. The babysitter said she couldnot because she was playing with the children. Who was lying?');
     oConnections[sFrom].fCurState = fMurder;
   }else{
     twiml.message("You have failed this city!")
