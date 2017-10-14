@@ -70,10 +70,11 @@ function fBeginning(req, res){
   var sFrom = req.body.From;
   oConnections[sFrom].fCurState = fStickOrHydrant;
   var twiml = new twilio.twiml.MessagingResponse();
-  twiml.message('There is a man found dead in a circular mansion. The detective interviews the cook, maid, and babysitter. The cook said he couldn't have done it because he was preparing the meal. The maid said she couldn't have done it because she was dusting the corners. The babysitter said she couldn't because she was playing with the children. Who was lying?');
+  twiml.message(''Hi ... Welcome to the adventure game where you will solve mystery'.');
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
 
+}
 
 //define a method for the twilio webhook
 app.post('/sms', function(req, res) {
