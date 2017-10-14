@@ -36,7 +36,7 @@ function fDencrypt(req, res){
   var twiml = new twilio.twiml.MessagingResponse();
   if(sAction.toLowerCase().search("bill") != -1){
     oConnections[sFrom].fCurState = fStickOrHydrant;
-    twiml.message("A detective who was mere days from cracking an international smuggling ring has suddenly gone missing. While inspecting his last-known location, you find a note: 710 57735 34 5508 51 7718 \n Currently there are 3 suspects: Bill, John, and Todd. Can you break the detective’s code and find the criminal’s name?");
+    twiml.message("A detective who was mere days from cracking an international smuggling ring has suddenly gone missing. While inspecting his last-known location, you find a note: 710 57735 34 5508 51 7718 <br> Currently there are 3 suspects: Bill, John, and Todd. Can you break the detective’s code and find the criminal’s name?");
   }else if(sAction.toLowerCase().search("take") != -1){
     twiml.message("Please play with me. Do you throw the stick?");
     oConnections[sFrom].fCurState = fPlay;
