@@ -70,7 +70,7 @@ function fBeginning(req, res){
   var sFrom = req.body.From;
   oConnections[sFrom].fCurState = fStickOrHydrant;
   var twiml = new twilio.twiml.MessagingResponse();
-  twiml.message(''Hi ... Welcome to the adventure game where you will solve mystery'.');
+  twiml.message('Hi ... My name is Sheba. I am very enthusiastic about this game. Wait! Is that a stick or a fire hydrant?');
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
 
