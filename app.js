@@ -12,15 +12,27 @@ app.use( express.static( sPath ) );
 app.use( bodyParser.urlencoded( {
 	extended: true
 } ) );
+function fhow( req, res ) {
+	var sFrom = req.body.From;
+	var sAction = req.body.Body;
+	var twiml = new twilio.twiml.MessagingResponse();
+	if ( sAction.toLowerCase().search( "wife" ) != -1 ) {
+		oConnections[sFrom].fCurState = fDecrypt;
+}else {
+	twiml.message("The wife because she was sleeping, how could she know that all of that happened?!");
+}
+res.writeHead( 200, {'Content-Type': 'text/xml'} );
+res.end( twiml.toString() );
+}
 
 function fDecrypt( req, res ) {
 	var sFrom = req.body.From;
 	var sAction = req.body.Body;
 	var twiml = new twilio.twiml.MessagingResponse();
 	if ( sAction.toLowerCase().search( "bob" ) != -1 ) {
-		oConnections[sFrom].fCurState = fDecrypt;
-	}
-} else {
+    twiml.message("A man is found dead one Saturday morning. He was killed while his wife was sleeping. The wife tells the police all that she knows. She tells them that the cook was cooking breakfast, the maid was cleaning and the butler was getting the mail. The police immediately arrest the person who is responsible. Who is responsible and why?");
+		oConnections[sFrom].fCurState = fhow;
+}else {
 	twiml.message( "Bill. If you read the message upside down, you’ll notice that the numbers resemble letters and that those letters form legible sentences. The message is \"Bill is boss. He sells oil.\"." );
 }
 res.writeHead( 200, {
@@ -36,7 +48,6 @@ function fMurder( req, res ) {
 	if ( sAction.toLowerCase().search( "maid" ) != -1 ) {
 		oConnections[ sFrom ].fCurState = fDecrypt;
 		twiml.message( "A detective who was mere days from cracking an international smuggling ring has suddenly gone missing. While inspecting his last-known location, you find a note: 710 57735 34 5508 51 7718 <br>Currently there are 3 suspects: Bill, John, and Todd. Can you break the detective’s code and find the criminal’s name?" );
-	}
 } else {
 	twiml.message( "Answer: The maid. There are no corners in a circular mansion." );
 }
@@ -54,7 +65,7 @@ function fPlay( req, res ) {
 		twiml.message( "There is a man found dead in a circular mansion. The detective interviews the cook, maid, and babysitter. The cook said he couldn\'t have done it because he was preparing the meal. The maid said she couldn't have done it because she was dusting the corners. The babysitter said she couldn't because she was playing with the children. Who was lying?" );
 		oConnections[ sFrom ].fCurState = fMurder;
 	} else {
-		twiml.message( "You have failed this city!" )
+		twiml.message("You have failed this city!" );
 	}
 	res.writeHead( 200, {
 		'Content-Type': 'text/xml'
@@ -67,9 +78,7 @@ function fBeginning( req, res ) {
 	oConnections[ sFrom ].fCurState = fPlay;
 	var twiml = new twilio.twiml.MessagingResponse();
 	twiml.message( "Welcome, You are a detective. Your job is to solve the mystries" );
-	res.writeHead( 200, {
-		'Content-Type': 'text/xml'
-	} );
+	res.writeHead( 200, {'Content-Type': 'text/xml'} );
 	res.end( twiml.toString() );
 }
 //define a method for the twilio webhook
