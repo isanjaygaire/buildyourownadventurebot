@@ -18,7 +18,7 @@ function fDecrypt( req, res ) {
 	var sAction = req.body.Body;
 	var twiml = new twilio.twiml.MessagingResponse();
 	if ( sAction.toLowerCase().search( "bob" ) != -1 ) {
-		// oConnections[sFrom].fCurState = fDecrypt;
+		oConnections[sFrom].fCurState = fDecrypt;
 	}
 } else {
 	twiml.message( "Bill. If you read the message upside down, you’ll notice that the numbers resemble letters and that those letters form legible sentences. The message is \"Bill is boss. He sells oil.\"." );
