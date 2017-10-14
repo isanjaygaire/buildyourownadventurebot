@@ -46,10 +46,10 @@ function fMurder( req, res ) {
 	var sAction = req.body.Body;
 	var twiml = new twilio.twiml.MessagingResponse();
 	if ( sAction.toLowerCase().search( "maid" ) != -1 ) {
-		oConnections[ sFrom ].fCurState = fDecrypt;
-		twiml.message( "A detective who was mere days from cracking an international smuggling ring has suddenly gone missing. While inspecting his last-known location, you find a note: 710 57735 34 5508 51 7718 <br>Currently there are 3 suspects: Bill, John, and Todd. Can you break the detective’s code and find the criminal’s name?" );
+    twiml.message( "Answer: The maid. There are no corners in a circular mansion." );
 } else {
-	twiml.message( "Answer: The maid. There are no corners in a circular mansion." );
+  oConnections[ sFrom ].fCurState = fDecrypt;
+  twiml.message( "A detective who was mere days from cracking an international smuggling ring has suddenly gone missing. While inspecting his last-known location, you find a note: 710 57735 34 5508 51 7718 <br>Currently there are 3 suspects: Bill, John, and Todd. Can you break the detective’s code and find the criminal’s name?" );
 }
 res.writeHead( 200, {
 	'Content-Type': 'text/xml'
@@ -66,6 +66,7 @@ function fPlay( req, res ) {
 		oConnections[ sFrom ].fCurState = fMurder;
 	} else {
 		twiml.message("You have failed this city!" );
+    oConnections[sFrom].fCurState = fBeginning;
 	}
 	res.writeHead( 200, {
 		'Content-Type': 'text/xml'
@@ -77,7 +78,7 @@ function fBeginning( req, res ) {
 	var sFrom = req.body.From;
 	oConnections[ sFrom ].fCurState = fPlay;
 	var twiml = new twilio.twiml.MessagingResponse();
-	twiml.message( "Welcome, You are a detective. Your job is to solve the mystries" );
+	twiml.message( "Welcome, You are a detective. Your job is to solve the mystries. Do you accept it?" );
 	res.writeHead( 200, {'Content-Type': 'text/xml'} );
 	res.end( twiml.toString() );
 }
