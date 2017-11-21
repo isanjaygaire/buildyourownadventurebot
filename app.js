@@ -12,19 +12,114 @@ app.use( express.static( sPath ) );
 app.use( bodyParser.urlencoded( {
 	extended: true
 } ) );
-function fhow( req, res ) {
+
+// 10
+function fWhoMurdered( req, res ) {
 	var sFrom = req.body.From;
 	var sAction = req.body.Body;
 	var twiml = new twilio.twiml.MessagingResponse();
-	if ( sAction.toLowerCase().search( "wife" ) != -1 ) {
+	if ( sAction.toLowerCase().search( "Sister and Mom" ) != -1 ) {
 		oConnections[sFrom].fCurState = fDecrypt;
 }else {
-	twiml.message("The wife because she was sleeping, how could she know that all of that happened?!");
+	twiml.message("The sister and mom! there in a circle house no corners! and who cooks dinner at 2:00 am!.");
+  oConnections[ sFrom ].fCurState = fBeginning;
+}
+res.writeHead( 200, {'Content-Type': 'text/xml'} );
+res.end( twiml.toString() );
+}
+// 9
+function fHunt( req, res ) {
+	var sFrom = req.body.From;
+	var sAction = req.body.Body;
+	var twiml = new twilio.twiml.MessagingResponse();
+	if ( sAction.toLowerCase().search( "Sister and Mom" ) != -1 ) {
+		oConnections[sFrom].fCurState = f;
+}else {
+	twiml.message("It was Halloween night and they were dressed up as deer.");
+  oConnections[ sFrom ].fCurState = fBeginning;
+}
+res.writeHead( 200, {'Content-Type': 'text/xml'} );
+res.end( twiml.toString() );
+}
+// 8
+function fHowManyWords( req, res ) {
+	var sFrom = req.body.From;
+	var sAction = req.body.Body;
+	var twiml = new twilio.twiml.MessagingResponse();
+	if ( sAction.toLowerCase().search( "14" ) != -1 ) {
+    twiml.message("A girl and a boy were out one night. They were in the woods, and they saw 3 men hunting. Next day the girl and boy were found dead. Why is this?");
+		oConnections[sFrom].fCurState = fHunt;
+}else {
+	twiml.message("14 'the special word'.");
+  oConnections[ sFrom ].fCurState = fBeginning;
 }
 res.writeHead( 200, {'Content-Type': 'text/xml'} );
 res.end( twiml.toString() );
 }
 
+
+// 7
+function fMysteryPerson( req, res ) {
+	var sFrom = req.body.From;
+	var sAction = req.body.Body;
+	var twiml = new twilio.twiml.MessagingResponse();
+	if ( sAction.toLowerCase().search( "Pregnant" ) != -1 ) {
+    twiml.message("one day there were two cops, they got a call saying there was some kind of mystery so they went to the house were the mystery was at, the lady there said she could not figure out how many letters the special word was, later the cops went home knowing that they had done a good job. How many letters was the special word?");
+		oConnections[sFrom].fCurState = fHowManyWords;
+}else {
+	twiml.message("The wife was about to have a baby. They were driving to the hospital. The baby was born, and the wife didn't survive the birth.");
+  oConnections[ sFrom ].fCurState = fBeginning;
+}
+res.writeHead( 200, {'Content-Type': 'text/xml'} );
+res.end( twiml.toString() );
+}
+
+// 6
+function fWhoMurdered( req, res ) {
+	var sFrom = req.body.From;
+	var sAction = req.body.Body;
+	var twiml = new twilio.twiml.MessagingResponse();
+	if ( sAction.toLowerCase().search( "Sister and Mom" ) != -1 ) {
+		oConnections[sFrom].fCurState = fMysteryPerson;
+    twiml.message("It was a dark stormy night and a couple were in a car racing madly through a foreign city. The car broke down and the husband had to go get help from someone who spoke his language. He was afraid to leave his wife alone in the car so he pulled up the windows and locked the car before leaving. When he came back, the car was in the same state as he had left it but his wife was dead, there was blood on the floor and there was a stranger in the car. What happened?");
+}else {
+	twiml.message("The sister and mom! there in a circle house no corners! and who cooks dinner at 2:00 am!.");
+  oConnections[ sFrom ].fCurState = fBeginning;
+}
+res.writeHead( 200, {'Content-Type': 'text/xml'} );
+res.end( twiml.toString() );
+}
+// 5
+function fFather( req, res ) {
+	var sFrom = req.body.From;
+	var sAction = req.body.Body;
+	var twiml = new twilio.twiml.MessagingResponse();
+	if ( sAction.toLowerCase().search( "daughter" ) != -1 ) {
+    twiml.message("A baby is murdered in a circle house at 2:00 am. The police question everyone and where they were the time at the babies murder. The dad said he was a work, the sister said she was reading in a corner, the mom was cooking dinner, and the son was playing video games in his bedroom. who Is the murder?");
+		oConnections[sFrom].fCurState = fWhoMurdered;
+}else {
+	twiml.message("The child was their daughter.");
+  oConnections[ sFrom ].fCurState = fBeginning;
+}
+res.writeHead( 200, {'Content-Type': 'text/xml'} );
+res.end( twiml.toString() );
+}
+// 4
+function fhow( req, res ) {
+	var sFrom = req.body.From;
+	var sAction = req.body.Body;
+	var twiml = new twilio.twiml.MessagingResponse();
+	if ( sAction.toLowerCase().search( "wife" ) != -1 ) {
+    twiml.message("A father's child, a mother's child, yet no one's son.")
+		oConnections[sFrom].fCurState = fFather;
+}else {
+	twiml.message("The wife because she was sleeping, how could she know that all of that happened?!");
+  oConnections[ sFrom ].fCurState = fBeginning;
+}
+res.writeHead( 200, {'Content-Type': 'text/xml'} );
+res.end( twiml.toString() );
+}
+// 3
 function fDecrypt( req, res ) {
 	var sFrom = req.body.From;
 	var sAction = req.body.Body;
@@ -34,13 +129,14 @@ function fDecrypt( req, res ) {
 		oConnections[sFrom].fCurState = fhow;
 }else {
 	twiml.message( "Bill. If you read the message upside down, you’ll notice that the numbers resemble letters and that those letters form legible sentences. The message is \"Bill is boss. He sells oil.\"." );
+  oConnections[ sFrom ].fCurState = fBeginning;
 }
 res.writeHead( 200, {
 	'Content-Type': 'text/xml'
 } );
 res.end( twiml.toString() );
 }
-
+// 2
 function fMurder( req, res ) {
 	var sFrom = req.body.From;
 	var sAction = req.body.Body;
@@ -50,13 +146,14 @@ function fMurder( req, res ) {
     oConnections[ sFrom ].fCurState = fDecrypt;
 } else {
   twiml.message( "Answer: The maid. There are no corners in a circular mansion." );
+  oConnections[ sFrom ].fCurState = fBeginning;
 }
 res.writeHead( 200, {
 	'Content-Type': 'text/xml'
 } );
 res.end( twiml.toString() );
 }
-
+// 1
 function fPlay( req, res ) {
 	var sFrom = req.body.From;
 	var sAction = req.body.Body;
@@ -78,7 +175,7 @@ function fBeginning( req, res ) {
 	var sFrom = req.body.From;
 	oConnections[ sFrom ].fCurState = fPlay;
 	var twiml = new twilio.twiml.MessagingResponse();
-	twiml.message( "Welcome, You are a detective. Your job is to solve the mystries. Do you accept it?" );
+	twiml.message( "Welcome, You are a detective. Your job is to solve the mysteries. Do you accept it?" );
 	res.writeHead( 200, {'Content-Type': 'text/xml'} );
 	res.end( twiml.toString() );
 }
